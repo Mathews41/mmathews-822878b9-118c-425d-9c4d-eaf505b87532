@@ -27,13 +27,9 @@ This is an NX Monorepo:
 - Node.js (v18+)
 - NPM
 
-### Configuration (.env)
+**Note on Node.js Version**: If you are using Node.js < v20.12.0, you may encounter `crypto.hash is not a function` errors. The project includes a polyfill that is automatically loaded when using the `npm run` commands below.
 
-1. Copy the example environment file:
-   ```bash
-   cp env.example .env
-   ```
-2. Edit `.env` if you want to override defaults (e.g., `JWT_SECRET`).
+### Configuration (.env)
 
 _Note: If no `.env` is provided, the application defaults to a development secret._
 
@@ -44,16 +40,6 @@ _Note: If no `.env` is provided, the application defaults to a development secre
    ```bash
    npm install
    ```
-
-### Running the Application
-
-You can run both the Backend and Frontend concurrently:
-
-```bash
-npm start
-```
-
-Or run them individually:
 
 #### Running the Backend
 
