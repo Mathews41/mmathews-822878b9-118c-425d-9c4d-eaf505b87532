@@ -14,6 +14,13 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     });
   }
 
-  return next(req);
+  return next(req).pipe(
+    tap({
+      error: (error) => {
+        console.error('HTTP Error:', error);
+      }
+    })
+  );
 };
+
 

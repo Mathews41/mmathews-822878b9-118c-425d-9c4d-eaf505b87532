@@ -29,11 +29,11 @@ This is an NX Monorepo:
 
 ### Configuration (.env)
 
-Create a `.env` file in the `apps/api` directory (or root, depending on how you run it) to override defaults.
-
-```env
-JWT_SECRET=your-super-secret-key
-```
+1. Copy the example environment file:
+   ```bash
+   cp env.example .env
+   ```
+2. Edit `.env` if you want to override defaults (e.g., `JWT_SECRET`).
 
 _Note: If no `.env` is provided, the application defaults to a development secret._
 
@@ -45,20 +45,30 @@ _Note: If no `.env` is provided, the application defaults to a development secre
    npm install
    ```
 
-### Running the Backend
+### Running the Application
+
+You can run both the Backend and Frontend concurrently:
+
+```bash
+npm start
+```
+
+Or run them individually:
+
+#### Running the Backend
 
 1. Start the API:
    ```bash
-   npx nx serve api
+   npm run start:api
    ```
    - The server will start at `http://localhost:3000`.
    - A SQLite database (`database.sqlite`) will be created automatically in the root.
 
-### Running the Frontend
+#### Running the Frontend
 
 1. Start the Dashboard:
    ```bash
-   npx nx serve dashboard
+   npm run start:dashboard
    ```
    - Open your browser at `http://localhost:4200`.
 

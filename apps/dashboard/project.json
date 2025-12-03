@@ -9,10 +9,11 @@
     "build": {
       "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/apps/dashboard",
-        "browser": "apps/dashboard/src/main.ts",
-        "polyfills": ["zone.js"],
+        "options": {
+          "outputPath": "dist/apps/dashboard",
+          "index": "apps/dashboard/src/index.html",
+          "browser": "apps/dashboard/src/main.ts",
+          "polyfills": ["zone.js"],
         "tsConfig": "apps/dashboard/tsconfig.app.json",
         "assets": [
           {

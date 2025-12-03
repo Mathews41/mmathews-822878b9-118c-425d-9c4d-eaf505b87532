@@ -1,4 +1,4 @@
-<div class="flex flex-col h-full">
+<div class="flex flex-col md:h-full">
   <div class="mb-4 flex justify-between items-center shrink-0" *ngIf="canCreate()">
     <div class="flex items-center gap-2">
        <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-200">Tasks Overview</h2>
@@ -7,28 +7,27 @@
     <button *ngIf="!isCreating" (click)="isCreating = true" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-sm flex items-center gap-2 transition-all">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" /></svg>
       <span class="hidden sm:inline">New Task</span>
-      <span class="sm:hidden">+</span>
     </button>
     
-    <!-- Creation Modal -->
-    <div *ngIf="isCreating" class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg border border-blue-100 dark:border-gray-700 w-full max-w-2xl absolute top-24 left-1/2 transform -translate-x-1/2 z-50 animate-fade-in-down mx-4">
-      <h3 class="font-bold text-gray-800 dark:text-gray-100 mb-3">Create New Task</h3>
-      <div class="space-y-3">
-        <input [(ngModel)]="newTaskTitle" placeholder="Task Title" class="border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white p-3 rounded-md w-full focus:ring-2 focus:ring-blue-200 focus:border-blue-500 outline-none">
-        <textarea [(ngModel)]="newTaskDesc" placeholder="Description (optional)" rows="3" class="border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white p-3 rounded-md w-full focus:ring-2 focus:ring-blue-200 focus:border-blue-500 outline-none text-sm"></textarea>
-      </div>
-      <div class="mt-4 flex justify-end gap-2">
-         <button (click)="isCreating = false" class="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Cancel</button>
-         <button (click)="createTask()" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 shadow-sm">Create Task</button>
+    <div *ngIf="isCreating" class="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div class="absolute inset-0 bg-black bg-opacity-50" (click)="isCreating = false"></div>
+      <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg border border-blue-100 dark:border-gray-700 w-full max-w-lg relative animate-fade-in-down">
+        <h3 class="font-bold text-gray-800 dark:text-gray-100 mb-3">Create New Task</h3>
+        <div class="space-y-3">
+          <input [(ngModel)]="newTaskTitle" placeholder="Task Title" class="border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white p-3 rounded-md w-full focus:ring-2 focus:ring-blue-200 focus:border-blue-500 outline-none">
+          <textarea [(ngModel)]="newTaskDesc" placeholder="Description (optional)" rows="3" class="border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white p-3 rounded-md w-full focus:ring-2 focus:ring-blue-200 focus:border-blue-500 outline-none text-sm"></textarea>
+        </div>
+        <div class="mt-4 flex justify-end gap-2">
+           <button (click)="isCreating = false" class="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Cancel</button>
+           <button (click)="createTask()" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 shadow-sm">Create Task</button>
+        </div>
       </div>
     </div>
-    <!-- Backdrop -->
-    <div *ngIf="isCreating" class="fixed inset-0 bg-black bg-opacity-20 z-40" (click)="isCreating = false"></div>
   </div>
 
-  <div class="flex flex-col md:flex-row gap-4 overflow-hidden" cdkDropListGroup>
+  <div class="flex flex-col md:flex-row gap-4 md:overflow-hidden" cdkDropListGroup>
     <!-- OPEN Column -->
-    <div class="flex-1 min-w-0 md:min-w-[300px] bg-gray-100 dark:bg-gray-800 rounded-xl p-3 flex flex-col border border-gray-200 dark:border-gray-700 shadow-sm transition-colors">
+    <div class="md:flex-1 w-full md:w-auto min-h-[500px] md:min-h-0 min-w-0 md:min-w-[300px] bg-gray-100 dark:bg-gray-800 rounded-xl p-3 flex flex-col border border-gray-200 dark:border-gray-700 shadow-sm transition-colors">
       <div class="flex items-center justify-between mb-3 shrink-0">
          <h3 class="font-bold text-gray-700 dark:text-gray-300 flex items-center gap-2 text-sm">
            <span class="w-2 h-2 rounded-full bg-gray-500"></span> To Do
@@ -75,7 +74,7 @@
     </div>
 
     <!-- IN PROGRESS Column -->
-    <div class="flex-1 min-w-0 md:min-w-[300px] bg-blue-50 dark:bg-blue-900/20 rounded-xl p-3 flex flex-col border border-blue-100 dark:border-blue-800 shadow-sm transition-colors">
+    <div class="md:flex-1 w-full md:w-auto min-h-[500px] md:min-h-0 min-w-0 md:min-w-[300px] bg-blue-50 dark:bg-blue-900/20 rounded-xl p-3 flex flex-col border border-blue-100 dark:border-blue-800 shadow-sm transition-colors">
       <div class="flex items-center justify-between mb-3 shrink-0">
          <h3 class="font-bold text-blue-800 dark:text-blue-300 flex items-center gap-2 text-sm">
            <span class="w-2 h-2 rounded-full bg-blue-500"></span> In Progress
@@ -121,7 +120,7 @@
     </div>
 
     <!-- DONE Column -->
-    <div class="flex-1 min-w-0 md:min-w-[300px] bg-green-50 dark:bg-green-900/20 rounded-xl p-3 flex flex-col border border-green-100 dark:border-green-800 shadow-sm transition-colors">
+    <div class="md:flex-1 w-full md:w-auto min-h-[500px] md:min-h-0 min-w-0 md:min-w-[300px] bg-green-50 dark:bg-green-900/20 rounded-xl p-3 flex flex-col border border-green-100 dark:border-green-800 shadow-sm transition-colors">
       <div class="flex items-center justify-between mb-3 shrink-0">
          <h3 class="font-bold text-green-800 dark:text-green-300 flex items-center gap-2 text-sm">
            <span class="w-2 h-2 rounded-full bg-green-500"></span> Done

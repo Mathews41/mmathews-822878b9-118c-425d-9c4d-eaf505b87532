@@ -10,7 +10,8 @@
     "moduleResolution": "bundler",
     "isolatedModules": true,
     "emitDecoratorMetadata": false,
-    "module": "preserve"
+    "module": "preserve",
+    "importHelpers": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
