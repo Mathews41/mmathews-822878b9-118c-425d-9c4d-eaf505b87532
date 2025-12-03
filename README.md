@@ -45,7 +45,7 @@ _Note: If no `.env` is provided, the application defaults to a development secre
 
 1. Start the API:
    ```bash
-   npm run start:api
+   npx nx serve api
    ```
    - The server will start at `http://localhost:3000`.
    - A SQLite database (`database.sqlite`) will be created automatically in the root.
