@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nx run-many --target=serve --all --parallel",
-    "start:api": "nx serve api",
-    "start:dashboard": "nx serve dashboard",
+    "start:api": "NODE_OPTIONS='--require ./polyfill-crypto.js' nx serve api",
+    "start:dashboard": "NODE_OPTIONS='--require ./polyfill-crypto.js' nx serve dashboard",
     "lint": "nx run-many --target=lint --all --parallel",
     "test": "nx run-many --target=test --all --parallel"
   },
@@ -14,7 +14,7 @@
     "@angular-devkit/core": "~20.3.0",
     "@angular-devkit/schematics": "~20.3.0",
     "@angular/build": "~20.3.0",
-    "@angular/cli": "^19.2.19",
+    "@angular/cli": "~20.3.0",
     "@angular/compiler-cli": "~20.3.0",
     "@angular/language-service": "~20.3.0",
     "@eslint/js": "^9.8.0",
