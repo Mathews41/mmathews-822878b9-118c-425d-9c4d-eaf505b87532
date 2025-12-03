@@ -1,0 +1,102 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 transition-colors duration-300 relative overflow-hidden font-sans">
+  <!-- Dark Mode Toggle -->
+  <button (click)="toggleDarkMode()" class="absolute top-4 right-4 p-2 rounded-full bg-white dark:bg-gray-800 shadow-md text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors z-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+    <svg *ngIf="!isDarkMode()" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+    </svg>
+    <svg *ngIf="isDarkMode()" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+    </svg>
+  </button>
+
+  <!-- Decorative Background Elements -->
+  <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+     <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-blue-100 dark:bg-blue-900/20 opacity-50 blur-3xl transition-colors duration-300"></div>
+     <div class="absolute top-1/2 -left-24 w-72 h-72 rounded-full bg-purple-100 dark:bg-purple-900/20 opacity-50 blur-3xl transition-colors duration-300"></div>
+  </div>
+
+  <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl w-full max-w-md relative z-10 border border-gray-100 dark:border-gray-700 transition-colors duration-300">
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight transition-colors">{{ isLogin ? 'Welcome Back' : 'Create Account' }}</h2>
+      <p class="text-gray-500 dark:text-gray-400 mt-2 text-sm transition-colors">{{ isLogin ? 'Sign in to access your workspace' : 'Get started with your secure task manager' }}</p>
+    </div>
+    
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-5">
+      <div>
+        <label class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2 transition-colors" for="username">Username</label>
+        <input formControlName="username" id="username" type="text" autocomplete="username"
+               class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900 outline-none transition-all bg-gray-50 focus:bg-white dark:focus:bg-gray-600"
+               placeholder="Enter your username">
+      </div>
+
+      <div>
+        <div class="flex justify-between items-center mb-2">
+          <label class="block text-gray-700 dark:text-gray-300 text-sm font-semibold transition-colors" for="password">Password</label>
+          <a *ngIf="isLogin" (click)="forgotPassword()" class="text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 cursor-pointer transition-colors">Forgot Password?</a>
+        </div>
+        <input formControlName="password" id="password" type="password" autocomplete="current-password"
+               class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900 outline-none transition-all bg-gray-50 focus:bg-white dark:focus:bg-gray-600"
+               placeholder="••••••••">
+      </div>
+
+      <div *ngIf="!isLogin" class="space-y-5 animate-fade-in-down">
+        <div>
+          <label class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2 transition-colors" for="orgName">Organization Name</label>
+          <input formControlName="orgName" id="orgName" type="text" autocomplete="organization"
+                 class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900 outline-none transition-all bg-gray-50 focus:bg-white dark:focus:bg-gray-600"
+                 placeholder="e.g. Acme Corp">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2 transition-colors" for="role">Role</label>
+          <div class="relative">
+            <select formControlName="role" id="role" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900 outline-none transition-all bg-gray-50 focus:bg-white dark:focus:bg-gray-600 appearance-none">
+              <option *ngFor="let r of roles" [value]="r">{{ r }}</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
+              <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="message" 
+           [ngClass]="{'bg-green-50 dark:bg-green-900/20 border-green-500': isSuccess, 'bg-red-50 dark:bg-red-900/20 border-red-500': !isSuccess}"
+           class="border-l-4 p-4 rounded transition-colors">
+        <p [ngClass]="{'text-green-700 dark:text-green-400': isSuccess, 'text-red-700 dark:text-red-400': !isSuccess}" 
+           class="text-sm">
+           {{ message }}
+        </p>
+      </div>
+
+      <button type="submit" 
+              [disabled]="form.invalid"
+              class="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-lg transition-colors shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+        {{ isLogin ? 'Sign In' : 'Create Account' }}
+      </button>
+
+      <div class="text-center mt-6">
+        <p class="text-sm text-gray-600 dark:text-gray-400 transition-colors">
+          {{ isLogin ? "Don't have an account?" : "Already have an account?" }}
+          <a class="font-bold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 cursor-pointer ml-1 transition-colors" (click)="toggleMode()">
+            {{ isLogin ? 'Register now' : 'Log in' }}
+          </a>
+        </p>
+      </div>
+    </form>
+  </div>
+  
+  <div class="absolute bottom-4 text-center w-full text-gray-400 dark:text-gray-500 text-xs transition-colors">
+    &copy; 2025 TaskFlow System. All rights reserved.
+  </div>
+</div>
+
+<style>
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in-down {
+    animation: fadeInDown 0.3s ease-out forwards;
+  }
+</style>
